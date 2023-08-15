@@ -5,12 +5,13 @@ import multer from 'multer';
 import dotenv from 'dotenv';
 
 import { registerUser } from './controllers/authUser.js'
+import { registerDoctor } from './controllers/authDoctor.js';
+
 import userRouter from './routes/userRoutes.js'
+import doctorRouter from './routes/doctorRoutes.js'
 dotenv.config();
 const PORT = process.env.PORT || 6001;
 const app = express();
-
-
 
 app.use(express.json());
 app.use(cors());
@@ -37,8 +38,9 @@ const upload = multer({storage});
 
 /* Routes Accepting Images */
 app.post("/user/register",upload.single("profile"),registerUser);
-
+app.post("/doctor/register",upload.single("profile"),registerDoctor);
 /*Routes */
 app.use("/user",userRouter);
+app.use("/doctor",doctorRouter)
 
 
